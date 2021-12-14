@@ -87,8 +87,13 @@ public class FireTVDiscoveryProvider implements DiscoveryProvider {
      */
     @Override
     public void stop() {
+
         if (isRunning) {
-            discoveryController.stop();
+            try {
+                discoveryController.stop();
+            }catch (Throwable t){
+
+            }
             isRunning = false;
         }
         for (ServiceDescription serviceDescription : foundServices.values()) {

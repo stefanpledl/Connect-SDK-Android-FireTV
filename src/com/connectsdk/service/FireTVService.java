@@ -132,8 +132,13 @@ public class FireTVService extends DeviceService implements MediaPlayer, MediaCo
     public void disconnect() {
         super.disconnect();
         if (playStateSubscription != null) {
-            playStateSubscription.unsubscribe();
-            playStateSubscription = null;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    playStateSubscription.unsubscribe();
+                    playStateSubscription = null;
+                }
+            }).start();
         }
         connected = false;
     }
